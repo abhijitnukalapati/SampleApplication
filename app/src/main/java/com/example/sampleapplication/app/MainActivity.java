@@ -8,7 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements PlaceHolderFragment.IManageCounterListener{
 
 
     private final String LOG_TAG = "sample";
@@ -16,7 +16,7 @@ public class MainActivity extends Activity {
     private final String FRAGMENT_TAG = "placeHolder";
 
     private PlaceHolderFragment mPlaceHolderFragment;
-    private int counter = 0;
+    private int counter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +30,6 @@ public class MainActivity extends Activity {
         // we could end up with overlapping fragments.
         if (savedInstanceState != null) {
             counter = savedInstanceState.getInt(COUNTER_VALUE, 0);
-            updateFragmentCounterText();
             return;
         } else {
             mPlaceHolderFragment = new PlaceHolderFragment();
@@ -65,7 +64,6 @@ public class MainActivity extends Activity {
         // performed
         super.onSaveInstanceState(outState);
 
-
         outState.putInt(COUNTER_VALUE, counter);
     }
 
@@ -81,9 +79,14 @@ public class MainActivity extends Activity {
         }
     }
 
+    @Override
+    public int getCounterValue() {
+        return counter;
+    }
+
+
     private void updateFragmentCounterText(){
         PlaceHolderFragment placeHolderFragment = (PlaceHolderFragment)getFragmentManager().findFragmentByTag(FRAGMENT_TAG);
         placeHolderFragment.setCounterText(counter);
     }
-
 }
