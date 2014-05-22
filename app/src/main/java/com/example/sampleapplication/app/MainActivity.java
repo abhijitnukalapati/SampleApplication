@@ -7,9 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-
 public class MainActivity extends Activity implements PlaceHolderFragment.IManageCounterListener{
-
 
     private final String LOG_TAG = "sample";
     private final String COUNTER_VALUE  = "counterValue";
@@ -87,6 +85,10 @@ public class MainActivity extends Activity implements PlaceHolderFragment.IManag
 
     private void updateFragmentCounterText(){
         PlaceHolderFragment placeHolderFragment = (PlaceHolderFragment)getFragmentManager().findFragmentByTag(FRAGMENT_TAG);
-        placeHolderFragment.setCounterText(counter);
+        try {
+            placeHolderFragment.setCounterText(counter);
+        } catch (NullPointerException npe) {
+            Log.d(LOG_TAG, "Couldn't set text for the counter field. The PlaceHolderFragment is null. How come?");
+        }
     }
 }
