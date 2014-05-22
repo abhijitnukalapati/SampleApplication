@@ -17,39 +17,29 @@ import android.widget.TextView;
  */
 public class PlaceHolderFragment extends Fragment {
 
+    private final String LOG_TAG = "sample";
     private TextView vCounterText;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(MainActivity.TAG, "Fragment - onCreate()");
-
+        Log.d(LOG_TAG, "Fragment - onCreate()");
     }
 
-    public PlaceHolderFragment() {
-    }
-
+    public PlaceHolderFragment() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Log.d(MainActivity.TAG, "Fragment - onCreateView()");
+        Log.d(LOG_TAG, "Fragment - onCreateView()");
 
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
         vCounterText = (TextView) rootView.findViewById(R.id.counter);
         return rootView;
     }
 
-    public void setCounterText(String s){
-        vCounterText.setText(s);
-    }
-
     public void setCounterText(int i){
         vCounterText.setText(String.valueOf(i));
-    }
-
-    public String getCounterText(){
-        return vCounterText.getText().toString();
     }
 
 }

@@ -10,9 +10,12 @@ import android.view.View;
 
 public class MainActivity extends Activity {
 
-    private PlaceHolderFragment mPlaceHolderFragment;
+
+    private final String LOG_TAG = "sample";
     private final String COUNTER_VALUE  = "counterValue";
-    public final static String TAG = "sample";
+    private final String FRAGMENT_TAG = "placeHolder";
+
+    private PlaceHolderFragment mPlaceHolderFragment;
     private int counter = 0;
 
     @Override
@@ -20,14 +23,14 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Log.d(MainActivity.TAG, "Activity - onCreate()");
-
+        Log.d(LOG_TAG, "Activity - onCreate()");
 
         // If we're being restored from a previous state,
         // then we don't need to do anything and should return or else
         // we could end up with overlapping fragments.
         if (savedInstanceState != null) {
-            ((PlaceHolderFragment)getFragmentManager().findFragmentByTag("placeHolder")).setCounterText(savedInstanceState.getInt(COUNTER_VALUE));
+            counter = savedInstanceState.getInt(COUNTER_VALUE, 0);
+            updateFragmentCounterText();
             return;
         } else {
             mPlaceHolderFragment = new PlaceHolderFragment();
@@ -36,7 +39,6 @@ public class MainActivity extends Activity {
                     .commit();
         }
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -63,19 +65,25 @@ public class MainActivity extends Activity {
         // performed
         super.onSaveInstanceState(outState);
 
-        outState.putInt(COUNTER_VALUE, Integer.valueOf(((PlaceHolderFragment) getFragmentManager().findFragmentByTag("placeHolder")).getCounterText()));
+
+        outState.putInt(COUNTER_VALUE, counter);
     }
 
     public void incrementCounter(View v) {
         ++counter;
-        ((PlaceHolderFragment)getFragmentManager().findFragmentByTag("placeHolder")).setCounterText(counter);
+        updateFragmentCounterText();
     }
 
     public void decrementCounter(View v) {
         if(counter > 0) {
             --counter;
-            ((PlaceHolderFragment)getFragmentManager().findFragmentByTag("placeHolder")).setCounterText(counter);
+            updateFragmentCounterText();
         }
+    }
+
+    private void updateFragmentCounterText(){
+        PlaceHolderFragment placeHolderFragment = (PlaceHolderFragment)getFragmentManager().findFragmentByTag(FRAGMENT_TAG);
+        placeHolderFragment.setCounterText(counter);
     }
 
 }
