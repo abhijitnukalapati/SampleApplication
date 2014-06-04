@@ -7,13 +7,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-public class MainActivity extends Activity implements PlaceHolderFragment.IManageCounterListener{
+public class MainActivity extends Activity implements PlaceHolderFragmentOne.IManageCounterListener{
 
     private final String LOG_TAG = "sample";
     private final String COUNTER_VALUE  = "counterValue";
     private final String FRAGMENT_TAG = "placeHolder";
 
-    private PlaceHolderFragment mPlaceHolderFragment;
+    private PlaceHolderFragmentOne mPlaceHolderFragmentOne;
     private int counter;
 
     @Override
@@ -30,9 +30,9 @@ public class MainActivity extends Activity implements PlaceHolderFragment.IManag
             counter = savedInstanceState.getInt(COUNTER_VALUE, 0);
             return;
         } else {
-            mPlaceHolderFragment = new PlaceHolderFragment();
+            mPlaceHolderFragmentOne = new PlaceHolderFragmentOne();
             getFragmentManager().beginTransaction()
-                    .add(R.id.container, mPlaceHolderFragment, "placeHolder")
+                    .add(R.id.container, mPlaceHolderFragmentOne, "placeHolder")
                     .commit();
         }
     }
@@ -84,9 +84,9 @@ public class MainActivity extends Activity implements PlaceHolderFragment.IManag
 
 
     private void updateFragmentCounterText(){
-        PlaceHolderFragment placeHolderFragment = (PlaceHolderFragment)getFragmentManager().findFragmentByTag(FRAGMENT_TAG);
+        PlaceHolderFragmentOne placeHolderFragmentOne = (PlaceHolderFragmentOne)getFragmentManager().findFragmentByTag(FRAGMENT_TAG);
         try {
-            placeHolderFragment.setCounterText(counter);
+            placeHolderFragmentOne.setCounterText(counter);
         } catch (NullPointerException npe) {
             Log.d(LOG_TAG, "Couldn't set text for the counter field. The PlaceHolderFragment is null. How come?");
         }

@@ -16,7 +16,7 @@ import android.widget.TextView;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class PlaceHolderFragment extends Fragment {
+public class PlaceHolderFragmentOne extends Fragment {
 
     public static interface IManageCounterListener {
         public int getCounterValue();
@@ -26,7 +26,7 @@ public class PlaceHolderFragment extends Fragment {
     private IManageCounterListener mManageCounterListener;
     private TextView vCounterText;
 
-    public PlaceHolderFragment() {}
+    public PlaceHolderFragmentOne() {}
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
